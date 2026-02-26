@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Backend
-        run: docker build -t backend:${IMAGE_TAG} ./backend
+        run: docker build -t backend:${IMAGE_TAG} -f app/backend/Dockerfile app
 
       - name: Build Frontend
-        run: docker build -t frontend:${IMAGE_TAG} ./frontend
+        run: docker build -t frontend:${IMAGE_TAG} -f app/frontend/Dockerfile app
