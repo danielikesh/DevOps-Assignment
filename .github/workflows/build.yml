@@ -35,7 +35,7 @@ jobs:
     # ---------------- BACKEND ----------------
     - name: Build backend image
       run: |
-        docker build -t backend ./backend
+        docker build -t backend ./app/backend
 
     - name: Tag backend image
       run: |
@@ -48,7 +48,7 @@ jobs:
     # ---------------- FRONTEND ----------------
     - name: Build frontend image
       run: |
-        docker build -t frontend ./frontend
+        docker build -t frontend ./app/frontend
 
     - name: Tag frontend image
       run: |
