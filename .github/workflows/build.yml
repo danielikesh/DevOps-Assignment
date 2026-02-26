@@ -1,0 +1,22 @@
+name: Build Images
+
+on:
+  push:
+    branches: [dev, staging, main]
+
+env:
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Backend
+        run: docker build -t backend:${IMAGE_TAG} ./backend
+
+      - name: Build Frontend
+        run: docker build -t frontend:${IMAGE_TAG} ./frontend
