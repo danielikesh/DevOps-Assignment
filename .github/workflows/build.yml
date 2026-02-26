@@ -35,15 +35,16 @@ jobs:
     # ---------------- BACKEND ----------------
     - name: Build backend image
       run: |
-        docker build -t backend ./app/backend
+        docker build -t backend:${{ github.sha }} ./app/backend
+
 
     - name: Tag backend image
       run: |
-        docker tag backend:latest ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_BACKEND }}:latest
+        docker tag backend:${{ github.sha }} ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_BACKEND }}:${{ github.sha }}
 
     - name: Push backend image
       run: |
-        docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_BACKEND }}:latest
+        docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_BACKEND }}:${{ github.sha }}
 
     # ---------------- FRONTEND ----------------
     - name: Build frontend image
@@ -52,8 +53,8 @@ jobs:
 
     - name: Tag frontend image
       run: |
-        docker tag frontend:latest ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_FRONTEND }}:latest
+        docker tag frontend:${{ github.sha }} ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_FRONTEND }}:${{ github.sha }}
 
     - name: Push frontend image
       run: |
-        docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_FRONTEND }}:latest
+        docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY_FRONTEND }}:${{ github.sha }}
